@@ -49,6 +49,14 @@ check_interval = {{ value.check_interval }}
 {% if value.prevent_alert_auto_close is defined %}
 prevent_alert_auto_close = {{ value.prevent_alert_auto_close | bool | lower }}
 {% endif %}
+{% if value.action is defined %}
+[plugin.checks.{{ key }}.action]
+{% if value.action.command is defined %}
+command = "{{ value.action.command }}"
+{% else %}{# if value.action.command is defined #}
+command = "{{ value.action }}"
+{% endif %}{# if value.action.command is defined #}
+{% endif %}{# if value.action is defined #}
 
 {% else %}{# if value.command is defined #}
 command = "{{ value }}"
